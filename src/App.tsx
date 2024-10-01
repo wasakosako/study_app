@@ -16,8 +16,8 @@ import { OtherProfile } from "./components/pages/OtherProfile";
 
 function App() {
   return (
-    <AuthProvider>
-      <ChakraProvider>
+    <ChakraProvider>
+      <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/Bar" element={<BarChart />} />
@@ -34,8 +34,8 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </ChakraProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </ChakraProvider>
   );
 }
 

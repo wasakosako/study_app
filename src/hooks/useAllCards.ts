@@ -19,7 +19,7 @@ export const GetAllCards = () => {
             content: user.content,
             Like: user.Like,
             status: user.status,
-          })
+          }),
         );
         setCards(data);
       })
