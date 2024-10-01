@@ -1,7 +1,8 @@
-import { Spinner, Text } from "@chakra-ui/react";
+import { Spinner, Text, Wrap } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { GetAllStudyCards } from "../../hooks/useStudyCards";
 import { StudyCards } from "../organisms/StudyCards";
+import { MdOutlineBookmarkAdd } from "react-icons/md";
 
 export const Record = () => {
   const { studyCards, GetStudyCards, error, loading } = GetAllStudyCards();
@@ -18,6 +19,7 @@ export const Record = () => {
           <Text fontSize="xl" fontStyle="bold">
             記録する
           </Text>
+          <MdOutlineBookmarkAdd size={50}/>
           <StudyCards cards={studyCards} />
         </>
       )}
