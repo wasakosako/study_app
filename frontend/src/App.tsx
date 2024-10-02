@@ -21,11 +21,11 @@ function App() {
           <Routes>
             <Route path="/Bar" element={<BarChart />} />
             <Route path="/Report" element={<DoughnutChart />} />
-            <Route path="/test" element={<Temp />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<SidebarLayout />}>
               <Route path="/Top" element={<Top />} />
+              <Route path="/test" element={<Temp />} />
               <Route path="/Top/Record" element={<Record />} />
               <Route path="/Timeline" element={<TimeLine />} />
               <Route path="/profile/:username" element={<OtherProfile />} />

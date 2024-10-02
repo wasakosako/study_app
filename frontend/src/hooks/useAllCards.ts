@@ -11,7 +11,7 @@ export const GetAllCards = () => {
     setLoading(true);
     setError(false);
     axios
-      .get<Array<CardProps>>("data.json")
+      .get<Array<CardProps>>("/proxy/api/allpost")
       .then((res) => {
         const data = res.data.map(
           (user): CardProps => ({

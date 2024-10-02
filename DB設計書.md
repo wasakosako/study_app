@@ -46,6 +46,8 @@
 | \_id         | ObjectId | Yes  | 勉強セッションのユニーク ID |
 | user_id      | ObjectId | Yes  | ユーザー ID (リレーション)  |
 | category_id  | ObjectId | Yes  | 大分類 ID (リレーション)    |
+| subject_name  | String | Yes  | 科目名   　　　　　　 |
+| is_bool     | boolean     | No  | 勉強終了時間                |
 | start_time   | Date     | Yes  | 勉強開始時間                |
 | end_time     | Date     | Yes  | 勉強終了時間                |
 

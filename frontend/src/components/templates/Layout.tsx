@@ -34,7 +34,9 @@ export const SidebarLayout = () => {
 
   //記録画面・タイムライン画面ではサイドバーを表示しない
   const show_header =
-    location.pathname !== "/Top/Record" && location.pathname !== "/TimeLine";
+    location.pathname !== "/Top/Record" &&
+    location.pathname !== "/TimeLine" &&
+    location.pathname !== "/test";
 
   return (
     <>

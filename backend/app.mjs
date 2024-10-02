@@ -5,6 +5,7 @@ import { userLogin, userRegister } from "./contllorer/userContllorer.mjs";
 import { Post } from "./user/post.mjs";
 import { user } from "./user/user.mjs";
 import cors from "cors"; // 修正した部分
+import { StudySession } from "./user/studysession.mjs";
 
 env.config();
 
@@ -78,6 +79,24 @@ app.get("/api/header/:username", async (req, res) => {
     });
   } catch (err) {
     return res.status(500).json({ error: "処理中にエラーが発生しました" });
+  }
+});
+
+app.get("/api/allpost", async (req, res) => {
+  try {
+    const post = await Post.find();
+    console.log(post);
+    res.status(200).json(post);
+  } catch (err) {
+    return res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
+app.post("/api/addstudy", async (req, res) => {
+  try {
+    console.log(req.body);
+  } catch (err) {
+    res.status(404).json({ error: "エラーが発生しました" });
   }
 });
 

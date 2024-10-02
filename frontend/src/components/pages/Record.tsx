@@ -2,7 +2,6 @@ import {
   Box,
   Button,
   FormControl,
-  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -20,13 +19,14 @@ import {
 import { useEffect } from "react";
 import { GetAllStudyCards } from "../../hooks/useStudyCards";
 import { StudyCards } from "../organisms/StudyCards";
-import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { FaPen } from "react-icons/fa6";
 import { AddIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 export const Record = () => {
   const { studyCards, GetStudyCards, error, loading } = GetAllStudyCards();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const navigate = useNavigate();
 
   useEffect(() => GetStudyCards, []);
   return (
@@ -79,7 +79,12 @@ export const Record = () => {
                     </FormControl>
                   </WrapItem>
                   <WrapItem>
-                    <AddIcon boxSize={4} mt={3} cursor="pointer" />
+                    <AddIcon
+                      boxSize={4}
+                      mt={3}
+                      cursor="pointer"
+                      onClick={() => navigate("/test")}
+                    />
                   </WrapItem>
                 </Wrap>
               </ModalBody>
