@@ -3,7 +3,7 @@ import jsonwebtoken from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { user as User } from "../src/user/user.mjs"; // Userモデルのインポート確認
+import { user as User } from "../user/user.mjs"; // Userモデルのインポート確認
 import env from "dotenv";
 
 env.config();

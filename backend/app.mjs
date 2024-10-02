@@ -2,8 +2,8 @@ import express from "express";
 import { body, validationResult } from "express-validator";
 import env from "dotenv";
 import { userLogin, userRegister } from "./contllorer/userContllorer.mjs";
-import { Post } from "./src/user/post.mjs";
-import { user } from "./src/user/user.mjs";
+import { Post } from "./user/post.mjs";
+import { user } from "./user/user.mjs";
 import cors from "cors"; // 修正した部分
 
 env.config();
