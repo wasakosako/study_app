@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  FormControl,
+  FormLabel,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -8,16 +10,19 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
   Spinner,
   Text,
   useDisclosure,
   Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { GetAllStudyCards } from "../../hooks/useStudyCards";
 import { StudyCards } from "../organisms/StudyCards";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { FaPen } from "react-icons/fa6";
+import { AddIcon } from "@chakra-ui/icons";
 
 export const Record = () => {
   const { studyCards, GetStudyCards, error, loading } = GetAllStudyCards();
@@ -61,10 +66,22 @@ export const Record = () => {
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>科目の追加</ModalHeader>
+              <ModalHeader as="u">科目の追加</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <Text></Text>
+                <Wrap>
+                  <WrapItem mr={4}>
+                    <FormControl>
+                      <Select placeholder="科目を選択">
+                        <option>United Arab Emirates</option>
+                        <option>Nigeria</option>
+                      </Select>
+                    </FormControl>
+                  </WrapItem>
+                  <WrapItem>
+                    <AddIcon boxSize={4} mt={3} cursor="pointer" />
+                  </WrapItem>
+                </Wrap>
               </ModalBody>
 
               <ModalFooter>
