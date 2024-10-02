@@ -23,5 +23,5 @@
   },
   "include": [
     "src"
-, "src/vite-env.d.ts"  ]
+, "frontend/vite-env., "frontend/type", "frontend/hooks", "frontend/helper", "frontend/components"d.ts", "frontend/react-app-env.d.ts", "frontend/reportWebVitals.ts", "frontend/setupTests.ts", "frontend/App.test.tsx", "frontend/App.tsx", "frontend/index.tsx"  ]
 }
