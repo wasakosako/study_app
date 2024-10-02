@@ -14,7 +14,7 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { GetAllStudyCards } from "../hooks/useStudyCards";
+import { GetAllStudyCards } from "../../hooks/useStudyCards";
 import { StudyCards } from "../organisms/StudyCards";
 import { MdOutlineBookmarkAdd } from "react-icons/md";
 import { FaPen } from "react-icons/fa6";

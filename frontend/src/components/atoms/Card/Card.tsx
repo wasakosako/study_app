@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { FC } from "react";
 import { LikeButton } from "../button/LikeButton";
-import { CardProps } from "../../type/atom";
+import { CardProps } from "../../../type/atom";
 
 //タイムラインに乗るカードだからタイムカード
 //くそわかりずらいから要編集

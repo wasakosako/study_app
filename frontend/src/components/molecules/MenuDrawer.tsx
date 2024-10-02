@@ -6,7 +6,7 @@ import {
 } from "@chakra-ui/react";
 import { FC, memo } from "react";
 import { SidebarButton } from "../atoms/button/menubutton";
-import { DrawerProps } from "../type/molecules";
+import { DrawerProps } from "../../type/molecules";
 
 export const UserMenu: FC<DrawerProps> = memo((props) => {
   const {

@@ -2,10 +2,10 @@ import { Box, useMediaQuery } from "@chakra-ui/react";
 import { Sidebar } from "../organisms/SideBar";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../organisms/Header";
-import { useAuth } from "../hooks/userContext";
+import { useAuth } from "../../hooks/userContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { HeaderProps } from "../type/organisms";
+import { HeaderProps } from "../../type/organisms";
 
 export const SidebarLayout = () => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");

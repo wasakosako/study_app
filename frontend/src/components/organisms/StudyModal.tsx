@@ -11,7 +11,7 @@ import { FC, memo } from "react";
 import { StudyModalFooter } from "../molecules/modal/modalfooter";
 import { BaseButton } from "../atoms/button/BaseButton";
 import { TimerModal } from "./TimerModal";
-import { ModalProps, NeedforStudy } from "../type/molecules";
+import { ModalProps, NeedforStudy } from "../../type/molecules";
 
 export const StudyModal: FC<ModalProps & NeedforStudy> = memo((props) => {
   const {

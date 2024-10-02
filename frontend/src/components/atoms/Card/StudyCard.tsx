@@ -1,7 +1,7 @@
 import { Box, Center, Stack, Text, Wrap, WrapItem } from "@chakra-ui/react";
 import { FC, memo } from "react";
 import { FaBook } from "react-icons/fa6";
-import { StudyCardProps } from "../../type/atom";
+import { StudyCardProps } from "../../../type/atom";
 
 export const StudyCard: FC<StudyCardProps> = memo((props) => {
   return (

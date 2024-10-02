@@ -4,7 +4,7 @@ import { TimeCard } from "../atoms/Card/Card";
 import { Center, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import { CardProps } from "../type/atom";
+import { CardProps } from "../../type/atom";
 
 export const OtherProfile = () => {
   const { username } = useParams();

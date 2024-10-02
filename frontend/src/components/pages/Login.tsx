@@ -14,8 +14,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FC, memo } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hooks/userContext";
-import { UserProps } from "../type/atom";
+import { useAuth } from "../../hooks/userContext";
+import { UserProps } from "../../type/atom";
 
 export const Login: FC = memo(() => {
   const navigate = useNavigate();

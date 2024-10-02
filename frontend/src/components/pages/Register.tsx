@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { UserProps } from "../type/atom";
+import { UserProps } from "../../type/atom";
 
 export const Register = () => {
   const {

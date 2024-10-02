@@ -1,6 +1,6 @@
 import { Button, ModalFooter } from "@chakra-ui/react";
 import { FC, memo } from "react";
-import { StudyModalFooterProps } from "../../type/molecules";
+import { StudyModalFooterProps } from "../../../type/molecules";
 
 export const StudyModalFooter: FC<StudyModalFooterProps> = memo((props) => {
   return (

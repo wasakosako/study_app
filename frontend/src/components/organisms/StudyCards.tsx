@@ -10,7 +10,7 @@ import {
 import { FC, memo } from "react";
 import { FaBook } from "react-icons/fa6";
 import { StudyModal } from "./StudyModal";
-import { StudyCardsProps } from "../type/organisms";
+import { StudyCardsProps } from "../../type/organisms";
 
 export const StudyCards: FC<StudyCardsProps> = memo((props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();

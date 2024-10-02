@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { FC, memo } from "react";
-import { ButtonProps } from "../../type/atom";
+import { ButtonProps } from "../../../type/atom";
 
 export const DefaultButton: FC<ButtonProps> = memo((props) => {
   return (

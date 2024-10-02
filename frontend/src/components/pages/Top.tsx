@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { TimeCard } from "../atoms/Card/Card";
 import { Center, Spinner } from "@chakra-ui/react";
-import { GetAllCards } from "../hooks/useAllCards";
+import { GetAllCards } from "../../hooks/useAllCards";
 
 export const Top = () => {
   const { getCards, loading, cards, error } = GetAllCards();

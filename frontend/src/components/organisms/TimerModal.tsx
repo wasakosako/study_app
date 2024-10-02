@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { BaseButton } from "../atoms/button/BaseButton";
 import { FC, useEffect, useState } from "react";
-import { ModalProps } from "../type/molecules";
+import { ModalProps } from "../../type/molecules";
 
 export const TimerModal: FC<ModalProps> = (props) => {
   const [startFlag, setStartFlag] = useState(false);

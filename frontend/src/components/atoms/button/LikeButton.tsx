@@ -1,7 +1,7 @@
 import { Box, Button, Wrap, WrapItem } from "@chakra-ui/react";
 import { FcLike, FcLikePlaceholder } from "react-icons/fc";
-import { UseLikeButton } from "../../hooks/useLikeButton";
-import { LikeProps } from "../../type/atom";
+import { UseLikeButton } from "../../../hooks/useLikeButton";
+import { LikeProps } from "../../../type/atom";
 
 const debugLike: LikeProps = {
   number: 1,

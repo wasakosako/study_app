@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
-import { AuthProvider } from "./components/hooks/userContext";
+import { AuthProvider } from "./hooks/userContext";
 import { BarChart } from "./components/organisms/graphs/BarGrapth";
 import { DoughnutChart } from "./components/pages/Report";
 import { Temp } from "./components/pages/temppage";

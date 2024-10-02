@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { UserMenu } from "../molecules/MenuDrawer";
 import { MenuIcon } from "../atoms/button/MenuIconButton";
 import { SidebarButton } from "../atoms/button/menubutton";
-import { useAuth } from "../hooks/userContext";
+import { useAuth } from "../../hooks/userContext";
 
 export const Sidebar: FC = memo(() => {
   const { logout } = useAuth();

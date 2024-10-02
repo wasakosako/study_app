@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 import { FC, memo } from "react";
-import { ButtonProps2 } from "../../type/atom";
+import { ButtonProps2 } from "../../../type/atom";
 
 export const BaseButton: FC<ButtonProps2> = memo((props) => {
   return (
