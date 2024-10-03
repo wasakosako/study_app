@@ -41,7 +41,7 @@ export const userRegister = async (req, res) => {
       {
         username: newUser.username,
       },
-      "SECRET_KEY",
+      "SECRET_KEY", //env内に置き返します
       {
         expiresIn: "24h",
       }

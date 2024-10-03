@@ -6,6 +6,7 @@ import { Post } from "./user/post.mjs";
 import { user } from "./user/user.mjs";
 import cors from "cors"; // 修正した部分
 import { StudySession } from "./user/studysession.mjs";
+import { studySubject } from "./user/studysubject.mjs";
 
 env.config();
 
@@ -95,6 +96,24 @@ app.get("/api/allpost", async (req, res) => {
 app.post("/api/addstudy", async (req, res) => {
   try {
     console.log(req.body);
+  } catch (err) {
+    res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
+app.post("/api/regist/subject", async (req, res) => {
+  try {
+    console.log(req.body);
+    const { name, status, priority } = req.body;
+    const newSubject = new studySubject({
+      name,
+      status,
+      priority,
+    });
+
+    await newSubject.save();
+
+    return res.status(200).json({ msg: "登録に成功しました" });
   } catch (err) {
     res.status(404).json({ error: "エラーが発生しました" });
   }

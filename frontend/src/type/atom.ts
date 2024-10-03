@@ -42,6 +42,6 @@ export type UserProps = {
 
 export type registStudyProps = {
   name: string;
-  status: boolean;
   priority: number;
+  status?: boolean;
 };
