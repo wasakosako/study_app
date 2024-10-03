@@ -1,0 +1,17 @@
+{
+  "name": "study_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd backend && npm run dev:api",
+    "start:frontend": "cd frontend && npm run dev",
+    "start:all": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

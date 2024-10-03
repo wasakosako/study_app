@@ -39,3 +39,9 @@ export type UserProps = {
   ImgURL?: string;
   createdAt?: Date;
 };
+
+export type registStudyProps = {
+  name: string;
+  status: boolean;
+  priority: number;
+};
