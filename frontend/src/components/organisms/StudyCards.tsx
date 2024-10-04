@@ -7,19 +7,25 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { FC, memo } from "react";
+import { FC, memo, useState } from "react";
 import { FaBook } from "react-icons/fa6";
 import { StudyModal } from "./StudyModal";
 import { StudyCardsProps } from "../../type/organisms";
 
 export const StudyCards: FC<StudyCardsProps> = memo((props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [cardname, setCardname] = useState<string | undefined>(undefined);
+  //クリック時に値を渡す
+  const handleOpen = (value: string) => {
+    setCardname(value);
+    onOpen();
+  };
   return (
     <>
       <Wrap>
         <Wrap spacing="30px" p={{ base: 4, md: 10 }}>
           {props.cards.map((cards) => (
-            <WrapItem onClick={onOpen}>
+            <WrapItem onClick={() => handleOpen(cards.name)}>
               <Box
                 p={4}
                 w="260px"
@@ -42,12 +48,7 @@ export const StudyCards: FC<StudyCardsProps> = memo((props) => {
           ))}
         </Wrap>
       </Wrap>
-      <StudyModal
-        isOpen={isOpen}
-        onClose={onClose}
-        onOpen={onOpen}
-        SubjectTitle="国語"
-      />
+      <StudyModal isOpen={isOpen} onClose={onClose} SubjectTitle={cardname} />
     </>
   );
 });

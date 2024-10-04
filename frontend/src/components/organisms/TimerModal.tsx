@@ -9,12 +9,15 @@ import {
 } from "@chakra-ui/react";
 import { BaseButton } from "../atoms/button/BaseButton";
 import { FC, useEffect, useState } from "react";
-import { ModalProps } from "../../type/molecules";
+import { StudyModalProps } from "../../type/molecules";
+import axios from "axios";
 
-export const TimerModal: FC<ModalProps> = (props) => {
+export const TimerModal: FC<StudyModalProps> = (props) => {
   const [startFlag, setStartFlag] = useState(false);
   const [minute, setMinute] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [studyminutes, setStudyminutes] = useState(0);
+  const [studyseconds, setStudyseconds] = useState(0);
 
   // タイマーの処理
   useEffect(() => {
@@ -40,12 +43,24 @@ export const TimerModal: FC<ModalProps> = (props) => {
       }, 1000);
     }
 
-    // クリーンアップ関数：タイマーをクリア
     return () => {
       clearInterval(minuteInterval);
       clearInterval(secondsInterval);
     };
   }, [startFlag, minute]);
+
+  // minuteとsecondsが変わるたびにstudyminutesとstudysecondsを更新
+  useEffect(() => {
+    if (startFlag) {
+      setStudyminutes((prevStudyMinutes) => prevStudyMinutes + 1 - 1);
+    }
+  }, [minute]);
+
+  useEffect(() => {
+    if (startFlag) {
+      setStudyseconds((prevStudySeconds) => prevStudySeconds + 1);
+    }
+  }, [seconds]);
 
   return (
     <Modal isOpen={props.isOpen} onClose={props.onClose}>
@@ -82,6 +97,26 @@ export const TimerModal: FC<ModalProps> = (props) => {
           10分
         </BaseButton>
         <BaseButton onClick={() => setStartFlag(true)}>スタート</BaseButton>
+        <BaseButton onClick={() => setStartFlag(false)}>ストップ</BaseButton>
+        <BaseButton
+          onClick={() => {
+            axios
+              .post("/proxy/api/regist/timer", {
+                subjectname: props.SubjectTitle,
+                studyminutes,
+                studyseconds,
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  alert("記録が成功しました");
+                } else {
+                  alert("記録が失敗しました");
+                }
+              });
+          }}
+        >
+          記録する
+        </BaseButton>
         <ModalCloseButton />
       </ModalContent>
     </Modal>

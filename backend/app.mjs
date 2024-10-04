@@ -7,6 +7,7 @@ import { user } from "./user/user.mjs";
 import cors from "cors"; // 修正した部分
 import { StudySession } from "./user/studysession.mjs";
 import { studySubject } from "./user/studysubject.mjs";
+import { timetable } from "./user/timetable.mjs";
 
 env.config();
 
@@ -139,6 +140,57 @@ app.get("/api/fetch/subject/:username", async (req, res) => {
 
     const subject = await studySubject.find({ username: username.toString() });
     return res.status(200).json(subject);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
+app.get("/api/fetch/studydata/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    const studies = await studySubject.find({ username: username.toString() });
+
+    const result = await studySubject.aggregate([
+      {
+        $lookup: {
+          from: "timer", // 結合するコレクション
+          localField: "subjects._id", // collection1 の結合に使うフィールド
+          foreignField: "subject_id", // collection2 の結合に使うフィールド
+          as: "studysession", // 結果のフィールド名
+        },
+      },
+    ]);
+
+    console.log(studies);
+    if (result.length === 0) {
+      return res.status(404).json({ error: "ユーザーが見つかりません" });
+    }
+    // JSON.stringifyの引数: nullはすべてのプロパティを変換し、2はインデントレベルを指定
+    console.log(JSON.stringify(studies, null, 2));
+    return res.status(200).json(studies);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
+app.post("/api/regist/timer", async (req, res) => {
+  try {
+    console.log(req.body);
+
+    const subject = await studySubject.findOne({
+      subjectname: req.body.name,
+    });
+    console.log(subject);
+    const newtimetable = new timetable({
+      subject_id: subject._id,
+      subjectname: req.body.subjectname,
+      sumtime: req.body.studyminutes,
+    });
+
+    await newtimetable.save();
   } catch (err) {
     console.log(err);
     res.status(404).json({ error: "エラーが発生しました" });

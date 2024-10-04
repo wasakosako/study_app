@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./hooks/userContext";
 import { BarChart } from "./components/organisms/graphs/BarGrapth";
-import { DoughnutChart } from "./components/pages/Report";
+import { Report } from "./components/pages/Report";
 import { Login } from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
 import { SidebarLayout } from "./components/templates/Layout";
@@ -20,7 +20,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/Bar" element={<BarChart />} />
-            <Route path="/Report" element={<DoughnutChart />} />
+            <Route path="/Report" element={<Report />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<SidebarLayout />}>

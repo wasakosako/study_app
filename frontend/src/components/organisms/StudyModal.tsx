@@ -11,9 +11,9 @@ import { FC, memo } from "react";
 import { StudyModalFooter } from "../molecules/modal/modalfooter";
 import { BaseButton } from "../atoms/button/BaseButton";
 import { TimerModal } from "./TimerModal";
-import { ModalProps, NeedforStudy } from "../../type/molecules";
+import { studymodalplus, StudyModalProps } from "../../type/molecules";
 
-export const StudyModal: FC<ModalProps & NeedforStudy> = memo((props) => {
+export const StudyModal: FC<StudyModalProps> = memo((props) => {
   const {
     isOpen: isTimerOpen,
     onClose: onTimerClose,
@@ -22,6 +22,7 @@ export const StudyModal: FC<ModalProps & NeedforStudy> = memo((props) => {
   const {
     isOpen,
     onClose,
+    SubjectTitle,
     Img = "https://images.unsplash.com/photo-1667489022797-ab608913feeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
   } = props;
   return (
@@ -47,7 +48,7 @@ export const StudyModal: FC<ModalProps & NeedforStudy> = memo((props) => {
       <TimerModal
         isOpen={isTimerOpen}
         onClose={onTimerClose}
-        onOpen={onTimerOpen}
+        SubjectTitle={SubjectTitle}
       />
     </>
   );

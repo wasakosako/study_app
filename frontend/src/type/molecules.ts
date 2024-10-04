@@ -14,6 +14,10 @@ export type ModalProps = {
   onOpen: () => void;
 };
 
+export type studymodalplus = {
+  subjectTitle: string;
+};
+
 export type NeedforStudy = {
   SubjectTitle: string;
   Img?: string;
@@ -22,4 +26,11 @@ export type NeedforStudy = {
 export type StudyModalFooterProps = {
   modalclose: () => void;
   ButtonAction: () => void;
+};
+
+export type StudyModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  SubjectTitle: string | undefined;
+  Img?: string;
 };
