@@ -3,7 +3,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { AuthProvider } from "./hooks/userContext";
 import { BarChart } from "./components/organisms/graphs/BarGrapth";
 import { DoughnutChart } from "./components/pages/Report";
-import { Temp } from "./components/pages/temppage";
 import { Login } from "./components/pages/Login";
 import { Register } from "./components/pages/Register";
 import { SidebarLayout } from "./components/templates/Layout";
@@ -12,6 +11,7 @@ import { Record } from "./components/pages/Record";
 import { TimeLine } from "./components/pages/TimeLine";
 import { OtherProfile } from "./components/pages/OtherProfile";
 import { Page404 } from "./components/pages/Page404";
+import { SubjectRegister } from "./components/pages/SubjectRegister";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<SidebarLayout />}>
               <Route path="/Top" element={<Top />} />
-              <Route path="/test" element={<Temp />} />
+              <Route path="/test" element={<SubjectRegister />} />
               <Route path="/Top/Record" element={<Record />} />
               <Route path="/Timeline" element={<TimeLine />} />
               <Route path="/profile/:username" element={<OtherProfile />} />

@@ -1,6 +1,5 @@
-import { FC, ReactNode, useContext, useState } from "react";
-import { createContext } from "react";
-import { UserProps } from "../type/atom";
+import { createContext, useContext, useState, FC, ReactNode } from "react";
+import { UserProps } from "../type/atom"; // UserPropsのインポート
 
 type AuthProps = {
   token: string | null;
@@ -8,6 +7,7 @@ type AuthProps = {
   logout: () => void;
   login: (token: string, userinfo: UserProps) => void;
 };
+
 const AuthContext = createContext<AuthProps | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
@@ -20,6 +20,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const login = (token: string, userInfo: UserProps) => {
     setUserInfo(userInfo);
     setToken(token);
+    console.log(token);
     localStorage.setItem("jwt", token);
   };
 
@@ -27,6 +28,7 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setToken(null);
     localStorage.removeItem("jwt");
   };
+
   return (
     <AuthContext.Provider value={{ token, userInfo, login, logout }}>
       {children}
@@ -34,10 +36,10 @@ export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export const useAuth = () => {
+// useAuthフックの定義
+export const useAuth = (): AuthProps => {
   const context = useContext(AuthContext);
-
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

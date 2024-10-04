@@ -39,6 +39,7 @@ export const Login: FC = memo(() => {
         if (res.status === 200) {
           console.log(res.data.token);
           login(res.data.token, res.data.userInfo);
+
           navigate("/Top");
         } else {
           //NG

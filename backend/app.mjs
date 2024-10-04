@@ -86,7 +86,6 @@ app.get("/api/header/:username", async (req, res) => {
 app.get("/api/allpost", async (req, res) => {
   try {
     const post = await Post.find();
-    console.log(post);
     res.status(200).json(post);
   } catch (err) {
     return res.status(404).json({ error: "エラーが発生しました" });
@@ -104,8 +103,17 @@ app.post("/api/addstudy", async (req, res) => {
 app.post("/api/regist/subject", async (req, res) => {
   try {
     console.log(req.body);
-    const { name, status, priority } = req.body;
+    const { username, name, status, priority } = req.body;
+    // ユーザーIDを元にユーザー情報を取得
+    console.log(username);
+    const userInfo = await user.findOne({ username: username.toString() });
+    if (!userInfo) {
+      return res.status(404).json({ error: "ユーザーが見つかりません" });
+    }
+
+    // 新しい科目を作成
     const newSubject = new studySubject({
+      username: username.toString(),
       name,
       status,
       priority,
@@ -115,6 +123,24 @@ app.post("/api/regist/subject", async (req, res) => {
 
     return res.status(200).json({ msg: "登録に成功しました" });
   } catch (err) {
+    console.log(err);
+    res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
+app.get("/api/fetch/subject/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const userInfo = await user.findOne({ username: username.toString() });
+    console.log(userInfo);
+    if (!userInfo) {
+      return res.status(404).json({ error: "ユーザーが見つかりません" });
+    }
+
+    const subject = await studySubject.find({ username: username.toString() });
+    return res.status(200).json(subject);
+  } catch (err) {
+    console.log(err);
     res.status(404).json({ error: "エラーが発生しました" });
   }
 });

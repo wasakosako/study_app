@@ -34,7 +34,7 @@ export const StudyCards: FC<StudyCardsProps> = memo((props) => {
                     <FaBook size="80%" />
                   </Center>
                   <Text fontSize="lg" fontWeight="bold">
-                    {cards._id}
+                    {cards.name}
                   </Text>
                 </Stack>
               </Box>

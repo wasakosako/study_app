@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 
 const studySchema = new Schema(
   {
+    username: {
+      type: String,
+      ref: "user",
+    },
     name: {
       type: String,
       required: true,

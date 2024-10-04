@@ -24,11 +24,10 @@ export type ButtonProps2 = {
 };
 
 export type StudyCardProps = {
-  _id: string;
-  user_id: string;
-  category_id: string;
-  start_time: Date;
-  end_time: Date;
+  name: string;
+  username: string;
+  status: boolean;
+  priority: number;
 };
 
 export type UserProps = {
@@ -41,7 +40,14 @@ export type UserProps = {
 };
 
 export type registStudyProps = {
+  username: string | null;
   name: string;
   priority: number;
   status?: boolean;
 };
+
+export interface DecodedToken {
+  username: string;
+  iat: number;
+  exp: number;
+}
