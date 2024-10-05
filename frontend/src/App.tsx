@@ -12,6 +12,7 @@ import { TimeLine } from "./components/pages/TimeLine";
 import { OtherProfile } from "./components/pages/OtherProfile";
 import { Page404 } from "./components/pages/Page404";
 import { SubjectRegister } from "./components/pages/SubjectRegister";
+import { RegistTime } from "./components/pages/RegistTime";
 
 function App() {
   return (
@@ -25,6 +26,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<SidebarLayout />}>
               <Route path="/Top" element={<Top />} />
+              <Route
+                path="/registtime"
+                element={<RegistTime subjectname="aaaa" />}
+              />
               <Route path="/test" element={<SubjectRegister />} />
               <Route path="/Top/Record" element={<Record />} />
               <Route path="/Timeline" element={<TimeLine />} />

@@ -48,4 +48,5 @@ export const Report = () => {
   // };
 
   // return <Doughnut data={data} options={options} />;
+  return <div>Report</div>;
 };

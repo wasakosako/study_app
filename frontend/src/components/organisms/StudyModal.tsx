@@ -11,9 +11,11 @@ import { FC, memo } from "react";
 import { StudyModalFooter } from "../molecules/modal/modalfooter";
 import { BaseButton } from "../atoms/button/BaseButton";
 import { TimerModal } from "./TimerModal";
-import { studymodalplus, StudyModalProps } from "../../type/molecules";
+import { StudyModalProps } from "../../type/molecules";
+import { useNavigate } from "react-router-dom";
 
 export const StudyModal: FC<StudyModalProps> = memo((props) => {
+  const navigate = useNavigate();
   const {
     isOpen: isTimerOpen,
     onClose: onTimerClose,
@@ -41,8 +43,13 @@ export const StudyModal: FC<StudyModalProps> = memo((props) => {
             alt="Caffe Latte"
           />
           <ModalCloseButton />
-          {/* 勉強時間を追加するaxios通信の実装 */}
-          <StudyModalFooter modalclose={onClose} ButtonAction={() => {}} />
+          {/* 勉強時間を追加するページの実装 */}
+          <StudyModalFooter
+            modalclose={onClose}
+            ButtonAction={() => {
+              navigate("/registtime");
+            }}
+          />
         </ModalContent>
       </Modal>
       <TimerModal

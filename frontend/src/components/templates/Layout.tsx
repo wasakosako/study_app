@@ -36,7 +36,8 @@ export const SidebarLayout = () => {
   const show_header =
     location.pathname !== "/Top/Record" &&
     location.pathname !== "/TimeLine" &&
-    location.pathname !== "/test";
+    location.pathname !== "/test" &&
+    location.pathname !== "/registtime";
 
   return (
     <>
