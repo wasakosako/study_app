@@ -197,6 +197,26 @@ app.post("/api/regist/timer", async (req, res) => {
   }
 });
 
+app.get("/directregisttime/:subject", async (req, res) => {
+  try {
+    console.log(req.query.time);
+    console.log(req.params.value);
+    const value = req.query.time;
+    const subject = req.params.subject;
+    const subjectid = await studySubject.findOne({ name: subject });
+    const newtimetable = new timetable({
+      subject_id: subjectid._id,
+      subjectname: subject,
+      sumtime: value,
+    });
+    console.log(newtimetable);
+    newtimetable.save();
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ error: "エラーが発生しました" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server start: http://localhost:${PORT}`);
 });
