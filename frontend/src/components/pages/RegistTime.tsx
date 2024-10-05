@@ -13,8 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { time } from "console";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 type RegistTimeProps = {
   subjectname: string;
@@ -38,7 +37,7 @@ export const RegistTime = (props: RegistTimeProps) => {
     setValue,
     formState: { errors },
   } = useForm<timeprops>({ defaultValues: { time: 50 } });
-  const { subjectname, Img } = props;
+  const { Img } = props;
 
   useEffect(() => {
     // 初期値をフォームに設定

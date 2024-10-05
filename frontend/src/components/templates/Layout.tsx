@@ -2,15 +2,19 @@ import { Box, useMediaQuery } from "@chakra-ui/react";
 import { Sidebar } from "../organisms/SideBar";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../organisms/Header";
-import { useAuth } from "../../hooks/userContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { HeaderProps } from "../../type/organisms";
+import { jwtDecode } from "jwt-decode";
+import { DecodedToken, UserProps } from "../../type/atom";
 
 export const SidebarLayout = () => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
   const location = useLocation();
-  const { userInfo } = useAuth();
+  const [userInfo, setUserInfo] = useState<UserProps>();
+  const [user] = useState<DecodedToken>(
+    jwtDecode(localStorage.getItem("jwt") || "")
+  );
   const [otherInfo, setOtherInfo] = useState<HeaderProps>();
   const [myself, setMyself] = useState(true);
   const { username } = useParams();
@@ -29,8 +33,20 @@ export const SidebarLayout = () => {
         });
     } else {
       setMyself(true);
+      if (localStorage.getItem("jwt") === null) {
+        useNavigate()("/");
+      }
+      axios
+        .get<UserProps>(`/proxy/api/header/${user.username}`)
+        .then((res) => {
+          const data = res.data;
+          setUserInfo(data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [username]);
+  }, [username, user.username]);
 
   //記録画面・タイムライン画面ではサイドバーを表示しない
   const show_header =
