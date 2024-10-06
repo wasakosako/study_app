@@ -37,7 +37,7 @@ export const TimeCard: FC<CardProps> = (props) => {
               mt={2}
               href={`/profile/${props.username}`}
             >
-              {props.username}
+              <Text textAlign="left">{props.username}</Text>
             </Link>
             <CardBody>{content}</CardBody>
 

@@ -21,15 +21,12 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/Bar" element={<BarChart />} />
-            <Route path="/Report" element={<Report />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<SidebarLayout />}>
               <Route path="/Top" element={<Top />} />
-              <Route
-                path="/registtime"
-                element={<RegistTime subjectname="aaaa" />}
-              />
+              <Route path="/registtime/:subname" element={<RegistTime />} />
+              <Route path="/Report" element={<Report />} />
               <Route path="/test" element={<SubjectRegister />} />
               <Route path="/Top/Record" element={<Record />} />
               <Route path="/Timeline" element={<TimeLine />} />

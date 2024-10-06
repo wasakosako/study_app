@@ -14,7 +14,7 @@ export const Top = () => {
       {error ? (
         <p>データの取得に失敗しました</p>
       ) : loading ? (
-        <Center h="100vh">
+        <Center>
           <Spinner />
         </Center>
       ) : (

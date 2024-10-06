@@ -30,7 +30,6 @@ export const Header: FC<HeaderProps> = memo((props) => {
           </Text>
         </Box>
       </Flex>
-      <MainTab one="タイムライン" two="レポート" three="プロフィール" />
     </>
   );
 });

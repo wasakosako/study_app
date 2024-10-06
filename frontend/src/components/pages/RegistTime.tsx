@@ -15,8 +15,8 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 type RegistTimeProps = {
-  subjectname: string;
   Img?: string;
 };
 
@@ -26,6 +26,8 @@ type timeprops = {
 
 export const RegistTime = (props: RegistTimeProps) => {
   const [sliderValue, setSliderValue] = useState(50);
+  const { subname } = useParams();
+  console.log(subname);
 
   const labelStyles = {
     mt: "2",
@@ -47,7 +49,7 @@ export const RegistTime = (props: RegistTimeProps) => {
   const onClick = (value: timeprops) => {
     console.log(value);
     axios
-      .get(`/proxy/directregisttime/${props.subjectname}`, {
+      .get(`/proxy/directregisttime/${subname}`, {
         params: {
           time: value.time,
         },
@@ -72,7 +74,7 @@ export const RegistTime = (props: RegistTimeProps) => {
           mb={50}
         />
         <Text ml={20} fontSize={50} mt={10}>
-          {props.subjectname}
+          {subname}
         </Text>
       </Flex>
       <form onSubmit={handleSubmit(onClick)}>

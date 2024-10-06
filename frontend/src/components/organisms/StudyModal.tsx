@@ -47,7 +47,7 @@ export const StudyModal: FC<StudyModalProps> = memo((props) => {
           <StudyModalFooter
             modalclose={onClose}
             ButtonAction={() => {
-              navigate("/registtime");
+              navigate(`/registtime/${props.SubjectTitle}`);
             }}
           />
         </ModalContent>

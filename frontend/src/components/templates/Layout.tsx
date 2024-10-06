@@ -1,4 +1,12 @@
-import { Box, useMediaQuery } from "@chakra-ui/react";
+import {
+  Box,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  useMediaQuery,
+} from "@chakra-ui/react";
 import { Sidebar } from "../organisms/SideBar";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Header } from "../organisms/Header";
@@ -7,6 +15,7 @@ import axios from "axios";
 import { HeaderProps } from "../../type/organisms";
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken, UserProps } from "../../type/atom";
+import { MainTab } from "../molecules/tabs/mainTab";
 
 export const SidebarLayout = () => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
@@ -53,8 +62,16 @@ export const SidebarLayout = () => {
     location.pathname !== "/Top/Record" &&
     location.pathname !== "/TimeLine" &&
     location.pathname !== "/test" &&
-    location.pathname !== "/registtime";
+    !location.pathname.startsWith("/registtime/") &&
+    location.pathname !== "/Report";
 
+  const show_sidebar =
+    location.pathname === "/Top/Record" ||
+    location.pathname === "/TimeLine" ||
+    location.pathname === "/Report" ||
+    location.pathname === "/test" ||
+    location.pathname.startsWith("/registtime/");
+  console.log(show_sidebar);
   return (
     <>
       {isLargerThanMd && (
@@ -71,25 +88,46 @@ export const SidebarLayout = () => {
       )}
       <Box ml={isLargerThanMd ? "250px" : "0"} mt="60px" p="4">
         {show_header && (
-          <Header
-            profileImg={
-              myself
-                ? userInfo?.ImgURL || "/images/default.jpg"
-                : otherInfo?.profileImg || "/images/default.jpg"
-            }
-            profile={
-              myself
-                ? userInfo?.profile || "よろしくお願いいたします。"
-                : otherInfo?.profile || "よろしくお願いいたします。"
-            }
-            username={
-              myself
-                ? userInfo?.username || "よろしくマン"
-                : otherInfo?.username || "よろしくマン"
-            }
-          />
+          <>
+            <Header
+              profileImg={
+                myself
+                  ? userInfo?.ImgURL || "/images/default.jpg"
+                  : otherInfo?.profileImg || "/images/default.jpg"
+              }
+              profile={
+                myself
+                  ? userInfo?.profile || "よろしくお願いいたします。"
+                  : otherInfo?.profile || "よろしくお願いいたします。"
+              }
+              username={
+                myself
+                  ? userInfo?.username || "よろしくマン"
+                  : otherInfo?.username || "よろしくマン"
+              }
+            />
+          </>
         )}
-        <Outlet />
+        {show_sidebar ? (
+          <>
+            <Outlet />
+          </>
+        ) : (
+          <>
+            <Tabs>
+              <TabList>
+                <Tab w="33%">タイムライン</Tab>
+                <Tab w="33%">記録</Tab>
+                <Tab w="33%">プロフィール</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <Outlet />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+          </>
+        )}
       </Box>
     </>
   );
