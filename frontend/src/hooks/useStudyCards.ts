@@ -23,7 +23,7 @@ export const GetAllStudyCards = () => {
       .then((res) => {
         const data = res.data.map(
           (subject): StudyCardProps => ({
-            name: subject.name,
+            subjectname: subject.subjectname,
             username: subject.username,
             status: subject.status,
             priority: subject.priority,

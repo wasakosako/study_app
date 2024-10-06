@@ -103,7 +103,7 @@ app.post("/api/addstudy", async (req, res) => {
 app.post("/api/regist/subject", async (req, res) => {
   try {
     console.log(req.body);
-    const { username, name, status, priority } = req.body;
+    const { username, subjectname, status, priority } = req.body;
     // ユーザーIDを元にユーザー情報を取得
     console.log(username);
     const userInfo = await user.findOne({ username: username.toString() });
@@ -114,7 +114,7 @@ app.post("/api/regist/subject", async (req, res) => {
     // 新しい科目を作成
     const newSubject = new studySubject({
       username: username.toString(),
-      name,
+      subjectname: subjectname,
       status,
       priority,
     });
@@ -166,6 +166,16 @@ app.get("/api/fetch/studydata/:username", async (req, res) => {
           as: "studysession", // 結果のフィールド名
         },
       },
+      {
+        $unwind: "$studysession", // studysession の配列を展開する
+      },
+      {
+        $group: {
+          _id: "$subjectname", // username ごとにグループ化
+          totalStudyTime: { $sum: "$studysession.duration" }, // 合計学習時間を計算
+          sessions: { $push: "$studysession" }, // 各セッションを配列に追加
+        },
+      },
     ]);
 
     console.log(result);
@@ -206,7 +216,7 @@ app.get("/directregisttime/:subject", async (req, res) => {
     console.log(req.params.value);
     const value = req.query.time;
     const subject = req.params.subject;
-    const subjectid = await studySubject.findOne({ name: subject });
+    const subjectid = await studySubject.findOne({ name: subjectname });
     const newtimetable = new timetable({
       subject_id: subjectid._id,
       subjectname: subject,

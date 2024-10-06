@@ -25,7 +25,7 @@ export const StudyCards: FC<StudyCardsProps> = memo((props) => {
       <Wrap>
         <Wrap spacing="30px" p={{ base: 4, md: 10 }}>
           {props.cards.map((cards) => (
-            <WrapItem onClick={() => handleOpen(cards.name)}>
+            <WrapItem onClick={() => handleOpen(cards.subjectname)}>
               <Box
                 p={4}
                 w="260px"
@@ -40,7 +40,7 @@ export const StudyCards: FC<StudyCardsProps> = memo((props) => {
                     <FaBook size="80%" />
                   </Center>
                   <Text fontSize="lg" fontWeight="bold">
-                    {cards.name}
+                    {cards.subjectname}
                   </Text>
                 </Stack>
               </Box>

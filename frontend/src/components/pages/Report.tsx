@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { DecodedToken } from "../../type/atom";
+import { json } from "stream/consumers";
 
 // Chart.jsの必要なコンポーネントを登録
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -20,7 +21,10 @@ export const Report = () => {
     if (Token === null) return;
     const { username } = jwtDecode<DecodedToken>(Token);
 
-    axios.get(`/proxy/api/fetch/studydata/${username}`).then((res) => {});
+    axios.get(`/proxy/api/fetch/studydata/${username}`).then((res) => {
+      const data = res.data;
+      console.log(data);
+    });
   }, []);
   // const data = {
   //   labels: ["Red", "Blue", "Yellow"],

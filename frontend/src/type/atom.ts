@@ -24,7 +24,7 @@ export type ButtonProps2 = {
 };
 
 export type StudyCardProps = {
-  name: string;
+  subjectname: string;
   username: string;
   status: boolean;
   priority: number;
@@ -41,7 +41,7 @@ export type UserProps = {
 
 export type registStudyProps = {
   username: string | null;
-  name: string;
+  subjectname: string;
   priority: number;
   status?: boolean;
 };

@@ -31,7 +31,7 @@ export const SubjectRegister = () => {
     defaultValues: {
       status: false,
       priority: 1,
-      name: "",
+      subjectname: "",
     },
   });
   const navigate = useNavigate();
@@ -64,7 +64,7 @@ export const SubjectRegister = () => {
       //     実例:[0] {
       //   status: false,
       //    priority: 0,
-      //    name: 'aaaaaaaaaaa',
+      //    subjectname: 'aaaaaaaaaaa',
       //    user_id: { username: 'e120202', iat: 1727993056, exp: 1728079456 }
       //  }
       //  このような形でデータが送信される。
@@ -112,7 +112,7 @@ export const SubjectRegister = () => {
                 placeholder="教材名を入力"
                 my={4}
                 ml={4}
-                {...register("name", {
+                {...register("subjectname", {
                   required: "教材名を入力してください",
                 })}
               />

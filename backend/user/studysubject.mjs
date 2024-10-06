@@ -6,7 +6,7 @@ const studySchema = new Schema(
       type: String,
       ref: "user",
     },
-    name: {
+    subjectname: {
       type: String,
       required: true,
     },
