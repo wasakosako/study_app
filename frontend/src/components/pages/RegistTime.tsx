@@ -72,7 +72,7 @@ export const RegistTime = (props: RegistTimeProps) => {
           mb={50}
         />
         <Text ml={20} fontSize={50} mt={10}>
-          科目名
+          {props.subjectname}
         </Text>
       </Flex>
       <form onSubmit={handleSubmit(onClick)}>

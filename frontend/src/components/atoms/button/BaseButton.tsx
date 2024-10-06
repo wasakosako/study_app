@@ -4,13 +4,7 @@ import { ButtonProps2 } from "../../../type/atom";
 
 export const BaseButton: FC<ButtonProps2> = memo((props) => {
   return (
-    <Button
-      bg="white"
-      color="black"
-      _hover={{ opacity: 0.8 }}
-      border="2px solid"
-      onClick={props.onClick}
-    >
+    <Button color="gary.800" _hover={{ opacity: 0.8 }} onClick={props.onClick}>
       {props.children}
     </Button>
   );

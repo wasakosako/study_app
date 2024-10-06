@@ -20,9 +20,7 @@ export const Report = () => {
     if (Token === null) return;
     const { username } = jwtDecode<DecodedToken>(Token);
 
-    axios.get(`/proxy/api/fetch/studydata/${username}`).then((res) => {
-      console.log(res.data);
-    });
+    axios.get(`/proxy/api/fetch/studydata/${username}`).then((res) => {});
   }, []);
   // const data = {
   //   labels: ["Red", "Blue", "Yellow"],
