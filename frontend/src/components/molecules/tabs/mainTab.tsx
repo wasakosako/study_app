@@ -1,22 +1,23 @@
-import { Tab, TabList, Tabs } from "@chakra-ui/react";
-import { FC } from "react";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
+import { Outlet } from "react-router-dom";
 
-// 将来propsが増えた場合の実装も考える
-type Props = {
-  one: String;
-  two: String;
-  three: String;
+type TabsComponentProps = {
+  currentPath: string; // 現在のパスなどの必要なデータを渡す
 };
 
-export const MainTab: FC<Props> = (props) => {
-  const { one, two, three } = props;
+export const TabsComponent = ({ currentPath }: TabsComponentProps) => {
   return (
-    <Tabs h="200px">
+    <Tabs>
       <TabList>
-        <Tab w="33%">{one}</Tab>
-        <Tab w="33%">{two}</Tab>
-        <Tab w="33%">{three}</Tab>
+        <Tab w="33%">タイムライン</Tab>
+        <Tab w="33%">記録</Tab>
+        <Tab w="33%">プロフィール</Tab>
       </TabList>
+      <TabPanels>
+        <TabPanel>
+          <Outlet /> {/* ここでOutletがルーティングに基づいて切り替わる */}
+        </TabPanel>
+      </TabPanels>
     </Tabs>
   );
 };

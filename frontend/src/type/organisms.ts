@@ -10,7 +10,7 @@ export type StudyCardsProps = {
 };
 
 export type HeaderProps = {
-  profileImg: string;
+  profileImg?: string;
   username: string;
   profile: string;
 };

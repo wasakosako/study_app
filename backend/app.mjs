@@ -1,24 +1,27 @@
 import express from "express";
 import { body, validationResult } from "express-validator";
 import env from "dotenv";
-import { userLogin, userRegister } from "./contllorer/userContllorer.mjs";
-import { Post } from "./user/post.mjs";
-import { user } from "./user/user.mjs";
-import cors from "cors"; // 修正した部分
-import { studySubject } from "./user/studysubject.mjs";
-import { timetable } from "./user/timetable.mjs";
+import {
+  fetchprofile,
+  userLogin,
+  userRegister,
+} from "./contllorer/userContllorer.mjs";
+import {
+  fectchAllPost,
+  fetchInfo4Header,
+} from "./contllorer/postContllorer.mjs";
+import {
+  addStudyTime,
+  addSubject,
+  directregisttime,
+  fetchStudyData,
+  fetchSubject,
+} from "./contllorer/subjectContllorer.mjs";
 
 env.config();
 
 const PORT = 8080;
 const app = express();
-
-// ミドルウェア設定
-app.use(
-  cors({
-    origin: "http://localhost:3000", // フロントエンドのURLを指定
-  })
-);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -55,180 +58,29 @@ app.post(
 );
 
 // プロフィール取得API
-app.get("/api/profile/:username", async (req, res) => {
-  try {
-    const _username = req.params.username;
-    const post = await Post.find({ username: _username });
-    res.status(200).json(post);
-  } catch (err) {
-    return res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
+app.get("/api/profile/:username", fetchprofile);
 
 // ヘッダー情報取得API
-app.get("/api/header/:username", async (req, res) => {
-  try {
-    const _username = req.params.username;
-    const userinfo = await user.findOne({ username: _username });
-    if (userinfo == null) {
-      return res.status(404).json({ error: "このユーザーは存在しません" });
-    }
-    res.status(200).json({
-      username: userinfo.username,
-      ImgURL: userinfo.ImgURL,
-      profile: userinfo.profile,
-    });
-  } catch (err) {
-    return res.status(500).json({ error: "処理中にエラーが発生しました" });
-  }
-});
+app.get("/api/header/:username", fetchInfo4Header);
 
-app.get("/api/allpost", async (req, res) => {
-  try {
-    const post = await Post.find();
-    res.status(200).json(post);
-  } catch (err) {
-    return res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
+//Top画面、TimeLine画面のためのすべての投稿を取得するAPI
+app.get("/api/allpost", fectchAllPost);
 
-app.post("/api/addstudy", async (req, res) => {
-  try {
-    console.log(req.body);
-  } catch (err) {
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
+//科目登録API
+//ToDO:バリデーションの追加
+app.post("/api/regist/subject", addSubject);
 
-app.post("/api/regist/subject", async (req, res) => {
-  try {
-    console.log(req.body);
-    const { username, subjectname, status, priority } = req.body;
-    // ユーザーIDを元にユーザー情報を取得
-    console.log(username);
-    const userInfo = await user.findOne({ username: username.toString() });
-    if (!userInfo) {
-      return res.status(404).json({ error: "ユーザーが見つかりません" });
-    }
+//ユーザーが登録した科目の取得API
+app.get("/api/fetch/subject/:username", fetchSubject);
 
-    // 新しい科目を作成
-    const newSubject = new studySubject({
-      username: username.toString(),
-      subjectname: subjectname,
-      status,
-      priority,
-    });
+//ユーザーがこれまで登録した勉強の記録を取得するAPI
+//Todo:未完成
+app.get("/api/fetch/studydata/:username", fetchStudyData);
 
-    await newSubject.save();
-
-    return res.status(200).json({ msg: "登録に成功しました" });
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
-
-app.get("/api/fetch/subject/:username", async (req, res) => {
-  try {
-    const username = req.params.username;
-    const userInfo = await user.findOne({ username: username.toString() });
-    console.log(userInfo);
-    if (!userInfo) {
-      return res.status(404).json({ error: "ユーザーが見つかりません" });
-    }
-
-    const subject = await studySubject.find({ username: username.toString() });
-    return res.status(200).json(subject);
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
-
-app.get("/api/fetch/studydata/:username", async (req, res) => {
-  try {
-    const username = req.params.username;
-
-    //const studies = await studySubject.find({ username: username.toString() });
-
-    const result = await studySubject.aggregate([
-      {
-        $match: {
-          /* findと同じ条件を指定 */
-          username: username.toString(),
-        },
-      },
-      {
-        $lookup: {
-          from: "timetables", // 結合するコレクション
-          localField: "_id", // collection1 の結合に使うフィールド
-          foreignField: "subject_id", // collection2 の結合に使うフィールド
-          as: "studysession", // 結果のフィールド名
-        },
-      },
-      {
-        $unwind: "$studysession", // studysession の配列を展開する
-      },
-      {
-        $group: {
-          _id: "$subjectname", // username ごとにグループ化
-          totalStudyTime: { $sum: "$studysession.duration" }, // 合計学習時間を計算
-          sessions: { $push: "$studysession" }, // 各セッションを配列に追加
-        },
-      },
-    ]);
-
-    console.log(result);
-    if (result.length === 0) {
-      return res.status(404).json({ error: "ユーザーが見つかりません" });
-    }
-    return res.status(200).json(result);
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
-
-app.post("/api/regist/timer", async (req, res) => {
-  try {
-    console.log(req.body);
-
-    const subject = await studySubject.findOne({
-      subjectname: req.body.name,
-    });
-    console.log(subject);
-    const newtimetable = new timetable({
-      subject_id: subject._id,
-      subjectname: req.body.subjectname,
-      sumtime: req.body.studyminutes,
-    });
-
-    await newtimetable.save();
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
-
-app.get("/directregisttime/:subject", async (req, res) => {
-  try {
-    console.log(req.query.time);
-    console.log(req.params.value);
-    const value = req.query.time;
-    const subject = req.params.subject;
-    const subjectid = await studySubject.findOne({ name: subjectname });
-    const newtimetable = new timetable({
-      subject_id: subjectid._id,
-      subjectname: subject,
-      sumtime: value,
-    });
-    console.log(newtimetable);
-    newtimetable.save();
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "エラーが発生しました" });
-  }
-});
+//勉強時間を追加するAPI
+app.post("/api/regist/timer", addStudyTime);
+//直接勉強時間を登録するAPI
+app.get("/directregisttime/:subject", directregisttime);
 
 app.listen(PORT, () => {
   console.log(`Server start: http://localhost:${PORT}`);

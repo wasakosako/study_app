@@ -15,7 +15,6 @@ import axios from "axios";
 import { HeaderProps } from "../../type/organisms";
 import { jwtDecode } from "jwt-decode";
 import { DecodedToken, UserProps } from "../../type/atom";
-import { MainTab } from "../molecules/tabs/mainTab";
 
 export const SidebarLayout = () => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
@@ -58,7 +57,7 @@ export const SidebarLayout = () => {
   }, [username, user.username]);
 
   //記録画面・タイムライン画面ではサイドバーを表示しない
-  const show_header =
+  const hide_header =
     location.pathname !== "/Top/Record" &&
     location.pathname !== "/TimeLine" &&
     location.pathname !== "/test" &&
@@ -87,7 +86,7 @@ export const SidebarLayout = () => {
         </Box>
       )}
       <Box ml={isLargerThanMd ? "250px" : "0"} mt="60px" p="4">
-        {show_header && (
+        {hide_header && (
           <>
             <Header
               profileImg={

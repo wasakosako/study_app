@@ -1,6 +1,5 @@
 import { Avatar, Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import { FC, memo } from "react";
-import { MainTab } from "../molecules/tabs/mainTab";
 import { HeaderProps } from "../../type/organisms";
 
 export const Header: FC<HeaderProps> = memo((props) => {

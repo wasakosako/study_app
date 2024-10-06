@@ -3,8 +3,9 @@ import jsonwebtoken from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { user as User } from "../user/user.mjs"; // Userモデルのインポート確認
+import { user as User } from "../models/user.mjs"; // Userモデルのインポート確認
 import env from "dotenv";
+import { Post } from "../models/post.mjs";
 
 env.config();
 
@@ -99,5 +100,15 @@ export const userLogin = async (req, res) => {
     return res
       .status(500)
       .json({ error: "ログイン処理中にエラーが発生しました" });
+  }
+};
+
+export const fetchprofile = async (req, res) => {
+  try {
+    const _username = req.params.username;
+    const post = await Post.find({ username: _username });
+    res.status(200).json(post);
+  } catch (err) {
+    return res.status(404).json({ error: "エラーが発生しました" });
   }
 };
