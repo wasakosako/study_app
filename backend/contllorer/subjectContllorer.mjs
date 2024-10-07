@@ -130,6 +130,7 @@ export const directregisttime = async (req, res) => {
     });
     console.log(newtimetable);
     newtimetable.save();
+    res.status(200).json({ msg: "登録に成功しました" });
   } catch (err) {
     console.log(err);
     res.status(404).json({ error: "エラーが発生しました" });

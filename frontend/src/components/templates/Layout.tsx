@@ -19,6 +19,7 @@ import { DecodedToken, UserProps } from "../../type/atom";
 export const SidebarLayout = () => {
   const [isLargerThanMd] = useMediaQuery("(min-width: 48em)");
   const location = useLocation();
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState<UserProps>();
   const [user] = useState<DecodedToken>(
     jwtDecode(localStorage.getItem("jwt") || "")
@@ -26,7 +27,6 @@ export const SidebarLayout = () => {
   const [otherInfo, setOtherInfo] = useState<HeaderProps>();
   const [myself, setMyself] = useState(true);
   const { username } = useParams();
-
   useEffect(() => {
     if (username) {
       setMyself(false);
@@ -42,7 +42,7 @@ export const SidebarLayout = () => {
     } else {
       setMyself(true);
       if (localStorage.getItem("jwt") === null) {
-        useNavigate()("/");
+        navigate("/");
       }
       axios
         .get<UserProps>(`/proxy/api/header/${user.username}`)
@@ -54,9 +54,25 @@ export const SidebarLayout = () => {
           console.log(err);
         });
     }
-  }, [username, user.username]);
+  }, [username, navigate, user.username]);
 
-  //記録画面・タイムライン画面ではサイドバーを表示しない
+  // タブのインデックスを現在のパスから決定
+  const getTabIndex = () => {
+    if (location.pathname.startsWith("/Top")) return 0;
+    if (location.pathname.startsWith("/Record")) return 1;
+    if (location.pathname.startsWith("/myprofile")) return 2;
+    return 0; // デフォルトのタブ
+  };
+
+  // タブを変更したときにURLを更新
+  const handleTabsChange = (index: number) => {
+    console.log(`Tab changed to index: ${index}`);
+    if (index === 0) navigate("/Top");
+    if (index === 1) navigate("/Record");
+    if (index === 2) navigate("/myprofile");
+  };
+
+  // サイドバーとヘッダーの表示制御
   const hide_header =
     location.pathname !== "/Top/Record" &&
     location.pathname !== "/TimeLine" &&
@@ -70,7 +86,7 @@ export const SidebarLayout = () => {
     location.pathname === "/Report" ||
     location.pathname === "/test" ||
     location.pathname.startsWith("/registtime/");
-  console.log(show_sidebar);
+
   return (
     <>
       {isLargerThanMd && (
@@ -108,12 +124,13 @@ export const SidebarLayout = () => {
           </>
         )}
         {show_sidebar ? (
-          <>
-            <Outlet />
-          </>
+          <Outlet />
         ) : (
           <>
-            <Tabs>
+            <Tabs
+              index={getTabIndex()} // 現在のURLに基づいてタブを設定
+              onChange={handleTabsChange} // タブ変更時にURLを更新
+            >
               <TabList>
                 <Tab w="33%">タイムライン</Tab>
                 <Tab w="33%">記録</Tab>

@@ -11,11 +11,12 @@ import {
   SliderThumb,
   SliderTrack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 type RegistTimeProps = {
   Img?: string;
 };
@@ -27,6 +28,8 @@ type timeprops = {
 export const RegistTime = (props: RegistTimeProps) => {
   const [sliderValue, setSliderValue] = useState(50);
   const { subname } = useParams();
+  const navigate = useNavigate();
+  const toast = useToast();
   console.log(subname);
 
   const labelStyles = {
@@ -55,7 +58,15 @@ export const RegistTime = (props: RegistTimeProps) => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        if (res.status === 200) {
+          toast({
+            title: "登録が成功しました.",
+            status: "success",
+            duration: 9000,
+            isClosable: true,
+          });
+          navigate(`/Top/Record`);
+        }
       })
       .catch((err) => {
         console.log(err);

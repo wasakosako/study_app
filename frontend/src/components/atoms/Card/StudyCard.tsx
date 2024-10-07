@@ -19,9 +19,7 @@ export const StudyCard: FC<StudyCardProps> = memo((props) => {
           <Center>
             <FaBook size="80%" />
           </Center>
-          <Text fontSize="lg" fontWeight="bold">
-            {props.category_id}
-          </Text>
+          <Text fontSize="lg" fontWeight="bold"></Text>
         </Stack>
       </Box>
     </WrapItem>

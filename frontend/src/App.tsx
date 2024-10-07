@@ -13,6 +13,7 @@ import { OtherProfile } from "./components/pages/OtherProfile";
 import { Page404 } from "./components/pages/Page404";
 import { SubjectRegister } from "./components/pages/SubjectRegister";
 import { RegistTime } from "./components/pages/RegistTime";
+import { Profile } from "./components/pages/Profile";
 
 function App() {
   return (
@@ -20,18 +21,23 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
+            {/* ログイン、登録はSidebarLayoutの外に設定 */}
             <Route path="/Bar" element={<BarChart />} />
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
+
+            {/* SidebarLayout内にネストされたルート */}
             <Route path="/" element={<SidebarLayout />}>
-              <Route path="/Top" element={<Top />} />
-              <Route path="/registtime/:subname" element={<RegistTime />} />
-              <Route path="/Report" element={<Report />} />
-              <Route path="/test" element={<SubjectRegister />} />
-              <Route path="/Top/Record" element={<Record />} />
-              <Route path="/Timeline" element={<TimeLine />} />
-              <Route path="/profile/:username" element={<OtherProfile />} />
-              <Route path="/*" element={<Page404 />} />
+              <Route path="Top" element={<Top />} />
+              <Route path="registtime/:subname" element={<RegistTime />} />
+              <Route path="Report" element={<Report />} />
+              <Route path="test" element={<SubjectRegister />} />
+              <Route path="Top/Record" element={<Record />} />
+              <Route path="Timeline" element={<TimeLine />} />
+              <Route path="profile/:username" element={<OtherProfile />} />
+              <Route path="myprofile" element={<Profile />} />
+              {/* 最後に404ページ */}
+              <Route path="*" element={<Page404 />} />
             </Route>
           </Routes>
         </BrowserRouter>
